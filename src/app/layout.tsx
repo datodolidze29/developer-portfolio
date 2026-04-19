@@ -36,6 +36,13 @@ export const metadata: Metadata = {
     title: `${site.name} — ${site.role}`,
     description: site.tagline,
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
 };
 
