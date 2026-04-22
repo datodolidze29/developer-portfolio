@@ -3,8 +3,6 @@ import { Geist, Geist_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { CustomCursor } from "@/components/cursor/custom-cursor";
-import { GrainOverlay } from "@/components/layout/grain-overlay";
 import { HashScroll } from "@/components/layout/hash-scroll";
 import { PageTransition } from "@/components/motion/page-transition";
 import { LenisProvider } from "@/components/providers/lenis-provider";
@@ -58,7 +56,6 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-background font-sans text-foreground">
         <LenisProvider>
-          <GrainOverlay />
           <div className="relative flex min-h-full flex-col">
             <SiteHeader />
             <main className="flex-1">
@@ -68,7 +65,6 @@ export default function RootLayout({
             <SiteFooter />
           </div>
         </LenisProvider>
-        <CustomCursor />
       </body>
     </html>
   );
