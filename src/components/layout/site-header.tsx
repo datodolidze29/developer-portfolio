@@ -15,13 +15,11 @@ type NavItem = {
   id: string;
   label: string;
   href: string;
-  /** In-page target on the home page (smooth scroll) */
-  sectionHref?: string;
 };
 
 const navItems: NavItem[] = [
   { id: "home", label: "Home", href: "/" },
-  { id: "projects", label: "Projects", href: "/projects", sectionHref: "/#projects" },
+  { id: "projects", label: "Projects", href: "/projects" },
   { id: "about", label: "About", href: "/about" },
   { id: "contact", label: "Contact", href: "/contact" },
 ];
@@ -51,22 +49,11 @@ function useDocumentHash() {
   return hash;
 }
 
-function navHref(item: NavItem, pathname: string) {
-  if (item.sectionHref && pathname === "/") {
-    return item.sectionHref;
-  }
-  return item.href;
-}
-
 function isActive(item: NavItem, pathname: string, hash: string) {
   if (item.id === "home") {
     return pathname === "/" && (!hash || hash === "");
   }
-  if (item.id === "projects") {
-    if (pathname.startsWith("/projects")) return true;
-    if (pathname === "/" && hash === "projects") return true;
-    return false;
-  }
+  if (item.id === "projects") return pathname.startsWith("/projects");
   if (item.id === "about") return pathname.startsWith("/about");
   if (item.id === "contact") return pathname.startsWith("/contact");
   return false;
@@ -160,11 +147,10 @@ export function SiteHeader() {
           >
             {navItems.map((item) => {
               const active = isActive(item, pathname, hash);
-              const href = navHref(item, pathname);
               return (
                 <HoverLift key={item.id} className="inline-block">
                   <Link
-                    href={href}
+                    href={item.href}
                     className={`relative block rounded-full px-3 py-1.5 text-xs font-medium uppercase tracking-[0.18em] transition-colors sm:text-[0.7rem] ${
                       active ? "text-foreground" : "text-muted hover:text-foreground"
                     }`}
@@ -227,7 +213,6 @@ export function SiteHeader() {
               <nav className="flex flex-col gap-1" aria-label="Mobile primary">
                 {navItems.map((item, index) => {
                   const active = isActive(item, pathname, hash);
-                  const href = navHref(item, pathname);
                   return (
                     <motion.div
                       key={item.id}
@@ -240,7 +225,7 @@ export function SiteHeader() {
                       }}
                     >
                       <Link
-                        href={href}
+                        href={item.href}
                         className={`block rounded-xl px-4 py-3.5 text-sm font-medium tracking-wide transition-colors ${
                           active
                             ? "bg-white/[0.08] text-foreground ring-1 ring-white/[0.1]"

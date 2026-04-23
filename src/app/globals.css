@@ -46,9 +46,3 @@ body {
   background: rgba(244, 244, 245, 0.16);
   color: var(--foreground);
 }
-
-@media (pointer: fine) {
-  html[data-cursor="fine"] body {
-    cursor: none;
-  }
-}
